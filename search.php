@@ -6,8 +6,8 @@
 	<title>Search - <?php echo $_GET["q"] ?></title>
 	
 	<link rel="icon" href="images/coursacado3.ico" type="image/ico" >
-	<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
-		<script src='bootstrap/js/bootstrap.js'></script>
+	<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js' async></script>
+		<script src='bootstrap/js/bootstrap.js' async></script>
 		<link href='bootstrap/css/bootstrap.css' rel='stylesheet'>
 
 </head>
@@ -15,7 +15,7 @@
 <body>
 
 
-    <div id="hmm"></div>
+    <div id="hmm"><?php echo file_get_contents("navbar.html");?></div>
     
 <!-- begin -->
 
@@ -26,7 +26,7 @@
 			<div class="">
 				<center><img src="images/coursacado.svg" height="100px" width="100px"/></center>
 				<h1 class="text-center">search - <?php echo $_GET["q"] ?></h1>
-				<h3 class="lead text-center">Many free courses and turorials to find here.</h3>
+				<h3 class="lead text-center">Many free courses and tutorials to find here.</h3>
 				<center>
  <form class="navbar-form" role="search" action="search.php" target="_top">
         <div class="form-group">
@@ -41,7 +41,7 @@
 		
 			<?php 
 			
-			$urls = array("http://coursacado.gregorywickham.com/navbar.html","http://coursacado.gregorywickham.com/html.html","http://coursacado.gregorywickham.com/javascript.html","http://coursacado.gregorywickham.com/php.html","http://coursacado.gregorywickham.com/api.html","http://coursacado.gregorywickham.com/cvst.html","http://coursacado.gregorywickham.com/c.html","http://coursacado.gregorywickham.com/csharp.html","http://coursacado.gregorywickham.com/c++.html","http://coursacado.gregorywickham.com/java.html","http://coursacado.gregorywickham.com/objective-c.html","http://coursacado.gregorywickham.com/perl.html","http://coursacado.gregorywickham.com/python.html","http://coursacado.gregorywickham.com/ruby.html","http://coursacado.gregorywickham.com/sql.html","http://coursacado.gregorywickham.com/libs.html","http://coursacado.gregorywickham.com/index.html","http://coursacado.gregorywickham.com/about.html","http://coursacado.gregorywickham.com/more.html","http://coursacado.gregorywickham.com/discussion.html");
+			$urls = array("http://coursacado.gregorywickham.com/navbar.html","http://coursacado.gregorywickham.com/html.php","http://coursacado.gregorywickham.com/php.php","http://coursacado.gregorywickham.com/cvst.html","http://coursacado.gregorywickham.com/c.php","http://coursacado.gregorywickham.com/csharp.php","http://coursacado.gregorywickham.com/c++.php","http://coursacado.gregorywickham.com/java.php","http://coursacado.gregorywickham.com/javascript.php","http://coursacado.gregorywickham.com/objective-c.php","http://coursacado.gregorywickham.com/perl.php","http://coursacado.gregorywickham.com/squeak.php","http://coursacado.gregorywickham.com/scratch.php","http://coursacado.gregorywickham.com/python.php","http://coursacado.gregorywickham.com/ruby.php","http://coursacado.gregorywickham.com/sql.php","http://coursacado.gregorywickham.com/libs.php","http://coursacado.gregorywickham.com/api.php","http://coursacado.gregorywickham.com/index.php","http://coursacado.gregorywickham.com/about.php","http://coursacado.gregorywickham.com/more.php","http://coursacado.gregorywickham.com/discussion.html");
 			
 function plaintext($html)
 {
@@ -63,13 +63,15 @@ function plaintext($html)
     return $plaintext;
 }
 	$results = 0;		
-for ($i = 1; $i <= 38; $i++) {
+for ($i = 1; $i <= 40; $i++) {
     
     $currentURL = plaintext(file_get_contents($urls[$i]));
-    if(strpos(strtolower($currentURL), strtolower($_GET["q"]." ")) !== false){
-    	echo "<a target='_top' href='".$urls[$i]."'>";//starts the link
-    	echo explode(".html", explode("http://coursacado.gregorywickham.com/", $urls[$i])[1])[0]."</a>";//[0] and [1] because explode() retunrs an array
-    	echo "<B>$currentURL</b>";//shows page text
+    $currentURL = explode(plaintext(file_get_contents("navbar.html")), $currentURL)[1];//[1] because explode() returns array
+    $currentURL = explode(plaintext(file_get_contents("footer.html")), $currentURL)[0];//[1] because explode() returns array
+    if(strpos(strtolower($currentURL), strtolower($_GET["q"])) !== false){
+    	echo "<b><a target='_top' href='".$urls[$i]."'>";//starts the link
+    	echo explode(".php", explode("http://coursacado.gregorywickham.com/", $urls[$i])[1])[0]."</a></b>";//[0] and [1] because explode() retunrs an array
+    	echo "<br><p>$currentURL</p>";//shows page text
     	echo "<hr>";
     	$results++;
     
@@ -78,8 +80,8 @@ for ($i = 1; $i <= 38; $i++) {
     
 }
 
-if($resluts == 0){
-	echo "no more results";
+if($results == 0){
+	echo "no results";
 }
 
 
@@ -99,11 +101,9 @@ if($resluts == 0){
 		<script src='bootstrap/js/bootstrap.js'></script>
 		<link href='bootstrap/css/bootstrap.css' rel='stylesheet'> -->
 		
-		<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
-		<script>$("#hmm").load("http://coursacado.gregorywickham.com/navbar.html");</script>
+		<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js' async></script>
 		</div>
-		<div id="footermain"></div>
-		<script>$("#footermain").load("../footer.html");</script>
+		<div id="footermain"><?php echo file_get_contents("footer.html");?></div>
 </body>
 
 </html>
