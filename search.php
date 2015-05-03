@@ -41,7 +41,7 @@
 		
 			<?php 
 			
-			$urls = array("http://coursacado.gregorywickham.com/navbar.html","http://coursacado.gregorywickham.com/r.php","http://coursacado.gregorywickham.com/html.php","http://coursacado.gregorywickham.com/php.php","http://coursacado.gregorywickham.com/cvst.html","http://coursacado.gregorywickham.com/c.php","http://coursacado.gregorywickham.com/csharp.php","http://coursacado.gregorywickham.com/c++.php","http://coursacado.gregorywickham.com/java.php","http://coursacado.gregorywickham.com/javascript.php","http://coursacado.gregorywickham.com/objective-c.php","http://coursacado.gregorywickham.com/perl.php","http://coursacado.gregorywickham.com/squeak.php","http://coursacado.gregorywickham.com/scratch.php","http://coursacado.gregorywickham.com/python.php","http://coursacado.gregorywickham.com/ruby.php","http://coursacado.gregorywickham.com/sql.php","http://coursacado.gregorywickham.com/haskell.php","http://coursacado.gregorywickham.com/libs.php","http://coursacado.gregorywickham.com/api.php","http://coursacado.gregorywickham.com/index.php","http://coursacado.gregorywickham.com/about.php","http://coursacado.gregorywickham.com/more.php","http://coursacado.gregorywickham.com/discussion.html");
+			$urls = array("http://coursacado.gregorywickham.com/navbar.html","http://coursacado.gregorywickham.com/r.php","http://coursacado.gregorywickham.com/c.php","http://coursacado.gregorywickham.com/csharp.php","http://coursacado.gregorywickham.com/c++.php","http://coursacado.gregorywickham.com/html.php","http://coursacado.gregorywickham.com/php.php","http://coursacado.gregorywickham.com/java.php","http://coursacado.gregorywickham.com/javascript.php","http://coursacado.gregorywickham.com/objective-c.php","http://coursacado.gregorywickham.com/perl.php","http://coursacado.gregorywickham.com/squeak.php","http://coursacado.gregorywickham.com/scratch.php","http://coursacado.gregorywickham.com/python.php","http://coursacado.gregorywickham.com/ruby.php","http://coursacado.gregorywickham.com/sql.php","http://coursacado.gregorywickham.com/haskell.php","http://coursacado.gregorywickham.com/libs.php","http://coursacado.gregorywickham.com/api.php","http://coursacado.gregorywickham.com/index.php","http://coursacado.gregorywickham.com/about.php","http://coursacado.gregorywickham.com/more.php","http://coursacado.gregorywickham.com/discussion.html","http://coursacado.gregorywickham.com/cvst.html");
 			
 function plaintext($html)
 {
@@ -62,13 +62,20 @@ function plaintext($html)
 
     return $plaintext;
 }
-	$results = 0;		
+	$results = 0;	
+	$q = $_GET["q"];
+	if(strtolower($q) === "java"){
+		$q = $q." ";
+	}
+	if(strtolower($q) === "r"){
+		$q = " ".$q." ";
+	}
 for ($i = 1; $i <= 41; $i++) {
     
     $currentURL = plaintext(file_get_contents($urls[$i]));
     $currentURL = explode(plaintext(file_get_contents("navbar.html")), $currentURL)[1];//[1] because explode() returns array
     $currentURL = explode(plaintext(file_get_contents("footer.html")), $currentURL)[0];//[1] because explode() returns array
-    if(strpos(strtolower($currentURL), strtolower($_GET["q"])) !== false){
+    if(strpos(strtolower($currentURL), strtolower($q)) !== false){
     	echo "<b><a target='_top' href='".$urls[$i]."'>";//starts the link
     	echo explode("Coursacado | ", explode("</title>", explode("<title>", file_get_contents($urls[$i]))[1])[0])[1]."</a></b>";//[0] and [1] because explode() retunrs an array
     	echo "<br><p>$currentURL</p>";//shows page text
