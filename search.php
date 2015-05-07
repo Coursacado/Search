@@ -24,7 +24,7 @@
 
 			
 			<div class="">
-				<center><img src="images/coursacado.svg" height="100px" width="100px"/></center>
+				<center><img src="images/coursacado3.jpg" height="100px" width="100px"/></center>
 				<h1 class="text-center">search - <?php echo $_GET["q"] ?></h1>
 				<h3 class="lead text-center">Many free courses and tutorials to find here.</h3>
 				<center>
