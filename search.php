@@ -70,6 +70,9 @@ function plaintext($html)
 	if(strtolower($q) === "r"){
 		$q = " ".$q." ";
 	}
+	if(strtolower($q) === "c"){
+		$q = " ".$q." ";
+	}
 for ($i = 1; $i <= 41; $i++) {
     
     $currentURL = plaintext(file_get_contents($urls[$i]));
