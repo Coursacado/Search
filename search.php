@@ -17,12 +17,8 @@
 
     <div id="hmm"><?php echo file_get_contents("navbar.html");?></div>
     
-<!-- begin -->
-
-
 		<div class="container">
 
-			
 			<div class="">
 				<center><img src="images/coursacado3.jpg" height="100px" width="100px"/></center>
 				<h1 class="text-center">search - <?php echo $_GET["q"] ?></h1>
